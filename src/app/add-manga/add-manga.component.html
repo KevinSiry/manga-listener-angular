@@ -1,0 +1,33 @@
+<div class="container">
+    <app-nav></app-nav>
+    <mat-form-field>
+        <mat-label>Chercher un manga</mat-label>
+        <input [(ngModel)]="searchValue" matInput placeholder="Ex. One Piece" (input)="loadMangas()">
+    </mat-form-field>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+
+        <!-- Last Chapter Column -->
+        <ng-container matColumnDef="lastChapter">
+            <th mat-header-cell *matHeaderCellDef> Last Chapter </th>
+            <td mat-cell *matCellDef="let element"> {{element.lastChapter}} </td>
+        </ng-container>
+
+        <!-- Add Column -->
+        <ng-container matColumnDef="addManga">
+            <th id="addColumn" mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let element">
+                <button [disabled]="element.icon == 'done'" type="button" matTooltip="Ajout du manga" mat-icon-button matSuffix (click)="addManga(element.name, element.tag)">
+                    <mat-icon>{{element.icon}}</mat-icon>
+                </button>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</div>

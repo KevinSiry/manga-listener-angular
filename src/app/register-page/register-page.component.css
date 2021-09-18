@@ -1,0 +1,25 @@
+.mat-form-field {
+    display: block;
+}
+
+.register-form {
+    display: block;
+    width: min-content;
+    border: 1px solid grey;
+    border-radius: 5px;
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: white;
+}
+
+.register-submit {
+    text-align: center;
+}
+
+mat-divider {
+    margin: 15px 0px 15px 0px;
+}

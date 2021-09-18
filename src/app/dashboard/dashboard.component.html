@@ -1,0 +1,93 @@
+<div class="page">
+    <div class="container">
+        <app-nav></app-nav>
+        <section>
+            <mat-checkbox color="primary" [(ngModel)]="isChecked" (change)="checkboxUpdate()">Seulement les mangas en cours !</mat-checkbox>
+        </section>
+        <table mat-table [dataSource]="dataSource" matSort matSortActive="completion" matSortDirection="desc" class="mat-elevation-z8">
+            <!-- Delete Column -->
+            <ng-container matColumnDef="favorite">
+                <th id="favoriteColumn" mat-header-cell *matHeaderCellDef mat-sort-header>Favoris</th>
+                <td mat-cell *matCellDef="let element">
+                    <button matTooltip="{{element.favorite ? 'Retirer le manga des favoris' : 'Ajouter le manga aux favoris'}}" type="button" mat-icon-button matSuffix (click)="favManga(element.tag, element.favorite)">
+                        <mat-icon>{{element.favorite ? 'star' : 'star_outline'}}</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+                <td mat-cell *matCellDef="let element">
+                    <a href="{{element.url}}" target="_blank">{{element.name}}</a>
+                </td>
+            </ng-container>
+
+            <!-- Completion Column -->
+            <ng-container matColumnDef="completion">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Completion </th>
+                <td mat-cell *matCellDef="let element"> {{element.completion}} % </td>
+            </ng-container>
+
+            <!-- Current Chapter Column -->
+            <ng-container matColumnDef="currentChapter">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Current Chapter </th>
+                <td mat-cell *matCellDef="let element">
+                    <mat-form-field>
+                        <input #lastRead matInput type="number" value="{{element.currentChapter}}" (blur)="updateLastRead(element.tag, lastRead.value)">
+                    </mat-form-field>
+                </td>
+            </ng-container>
+
+            <!-- Last Chapter Column -->
+            <ng-container matColumnDef="lastChapter">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Last Chapter </th>
+                <td mat-cell *matCellDef="let element"> {{element.lastChapter}} </td>
+            </ng-container>
+
+            <!-- Delete Column -->
+            <ng-container matColumnDef="deleteManga">
+                <th id="deleteColumn" mat-header-cell *matHeaderCellDef mat-sort-header disabled></th>
+                <td mat-cell *matCellDef="let element">
+                    <button matTooltip="Suppression du manga" type="button" mat-icon-button matSuffix (click)="deleteManga(element.name, element.tag)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr [class.make-red]="row.completion <= 40" [class.make-yellow]="row.completion > 40 && row.completion <= 79" [class.make-green]="row.completion >= 80" mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <div class="footer">
+            <i>Pour toutes suggestions, contactez Chabow#7728 sur discord.</i>
+        </div>
+    </div>
+    <div class="right-column">
+        <mat-card>
+            <mat-card-header>
+                <div mat-card-avatar class="header-image-maj"></div>
+                <mat-card-title>Dernière mise à jour</mat-card-title>
+                <mat-card-subtitle>faite le</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+                <h1>{{lastUpdate?.lastUpdate | date:'d MMMM y - HH:mm'}}</h1>
+            </mat-card-content>
+        </mat-card>
+        <mat-card>
+            <mat-card-header>
+                <div mat-card-avatar class="header-image-stats"></div>
+                <mat-card-title>Quelques stats</mat-card-title>
+                <mat-card-subtitle>Vous avez :</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+                <ul>
+                    <li>{{ userStats?.mangasFinished }} mangas fini ou à jour</li>
+                    <li>{{ userStats?.mangasOnGoing }} mangas en cours de lecture</li>
+                    <li>{{ userStats?.chaptersRead }} chapitres lu</li>
+                    <li>{{ userStats?.chaptersUnread }} chapitres non lu</li>
+                </ul>
+                <i>Les statistiques concernant les chapitres peuvent ne pas refléter la réalité, étant donné que certaines oeuvres ne suivent pas le principe des nombres entiers.</i>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

@@ -1,0 +1,33 @@
+<div class="box">
+    <div class="auth-form">
+        <div *ngIf="httpCode == 403" class="alert alert-danger">
+            Identifiant/Mot de passe incorrect
+        </div>
+        <!-- ID Form -->
+        <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+            <mat-form-field appearance="fill">
+                <mat-label>Identifiant</mat-label>
+                <input matInput placeholder="Xx-Dark-Sasuke-xX" formControlName="username" required>
+            </mat-form-field>
+
+            <!-- Password Form -->
+            <mat-form-field appearance="fill" (keyup.enter)="onSubmit()">
+                <mat-label>Mot de passe</mat-label>
+                <input matInput formControlName="password" [type]="hide ? 'password' : 'text'">
+                <button type="button" mat-icon-button matSuffix (click)="hide = !hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+            </mat-form-field>
+
+            <!-- Submit Button -->
+            <div class="auth-submit">
+                <button mat-stroked-button type="submit">Valider</button>
+            </div>
+        </form>
+    </div>
+    <mat-divider [vertical]="true"></mat-divider>
+    <div class="register">
+        <p>Toujours pas de compte sur Manga Listener ?</p>
+        <button mat-stroked-button (click)="goRegister()">Créer un compte</button>
+    </div>
+</div>

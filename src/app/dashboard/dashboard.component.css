@@ -1,0 +1,70 @@
+table {
+    width: 100%;
+    margin: 10px 0px 15px 0px;
+}
+
+.make-red {
+    background-color: #ffe6e6;
+}
+
+.make-yellow {
+    background-color: #ffffe6;
+}
+
+.make-green {
+    background-color: #e6ffe6;
+}
+
+#deleteColumn {
+    width: 20px;
+}
+
+#favoriteColumn {
+    width: 30px;
+}
+
+.header-image-maj {
+    background-image: url('../../../images/clock.png');
+    background-size: cover;
+}
+
+.header-image-stats {
+    background-image: url('../../../images/statistics.png');
+    background-size: cover;
+}
+
+.page {
+    display: flex;
+}
+
+.container {
+    margin-right: 0%;
+    margin-left: 20%;
+    width: 60%;
+}
+
+mat-card {
+    height: auto;
+    margin-right: 15px;
+    margin-bottom: 15px;
+}
+
+.right-column {
+    position: relative;
+    width: 20%;
+    margin-top: 5%;
+}
+
+@media screen and (max-width: 1000px) {
+    .right-column {
+        visibility: hidden;
+    }
+    .container {
+        margin-right: 0%;
+        margin-left: 0%;
+        width: 100%;
+    }
+    .page {
+        display: block;
+    }
+}

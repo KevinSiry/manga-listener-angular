@@ -1,0 +1,46 @@
+<div class="register-form">
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <div *ngIf="registerForm.errors?.noMatch" class="alert alert-danger">
+            Les mots de passe renseignés ne sont pas identiques.
+        </div>
+        <div *ngIf="httpCode == 201" class="alert alert-success">
+            Votre compte à bien été crée, <a routerLink="/login">Connectez vous !</a>
+        </div>
+        <!-- ID Form -->
+        <mat-form-field appearance="fill">
+            <mat-label>Identifiant</mat-label>
+            <input matInput placeholder="Xx-Dark-Sasuke-xX" formControlName="username">
+        </mat-form-field>
+
+        <!-- Email Form -->
+        <mat-form-field appearance="fill">
+            <mat-label>Email</mat-label>
+            <input matInput placeholder="Xx-Dark-Sasuke-xX@gmail.com" formControlName="email">
+        </mat-form-field>
+
+        <!-- Password Form -->
+        <mat-form-field appearance="fill">
+            <mat-label>Mot de passe</mat-label>
+            <input matInput formControlName="password" [type]="hide ? 'password' : 'text'">
+            <button type="button" mat-icon-button matSuffix (click)="hide = !hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+        </mat-form-field>
+
+        <!-- Password Repeat Form -->
+        <mat-form-field appearance="fill">
+            <mat-label>Répéter votre mot de passe</mat-label>
+            <input matInput formControlName="passwordRepeat" [type]="hideRepeat ? 'password' : 'text'">
+            <button type="button" mat-icon-button matSuffix (click)="hideRepeat = !hideRepeat">
+                <mat-icon>{{hideRepeat ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+        </mat-form-field>
+
+        <!-- Submit Button -->
+        <div class="register-submit">
+            <button mat-stroked-button type="submit">Valider</button>
+        </div>
+    </form>
+    <mat-divider></mat-divider>
+    <p>Déjà un compte ? <a routerLink="/login">Connectez vous!</a></p>
+</div>
